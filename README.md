@@ -1,10 +1,11 @@
 This repository contains project files for the Holberton AirBnB clone project!
 At a high level, the point of this project is to generate a mostly-functional AirBnB clone.
 
-This project took place across four months, with four parts each.
+This project took place across four months, with four parts each. Every module in this repository has unittests in the folder ```tests```.
 
 ## Part 1 - Command Interpreter
 The first week involves building a Python console to interface with the higher-level aspects of the program. It uses a JSON file structure which will be replaced later by an actual SQL database.
+
 ### Here are some example usages:
 Interactive Mode:
 ```
