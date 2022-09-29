@@ -20,7 +20,7 @@ class BaseModel:
         """
         Prints string representation of the data object
         """
-        return f"[{self.name}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """
