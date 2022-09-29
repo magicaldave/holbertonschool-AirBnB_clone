@@ -4,12 +4,16 @@ Unittest for BaseModel Class
 """
 
 import unittest
+from unittest import mock
 import inspect
+import models
 import pep8
 from models.base_model import BaseModel
+from datetime import datetime
+import time
 
 
-class TestBaseModel(unittest.TestCase):
+class TestBaseModelDocs(unittest.TestCase):
     """Unittest for BaseModel class"""
 
     @classmethod
@@ -39,6 +43,26 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(len(BaseModel.__str__.__doc__) >= 1)
         self.assertTrue(len(BaseModel.save.__doc__) >= 1)
         self.assertTrue(len(BaseModel.to_dict.__doc__) >= 1)
+
+
+class TestBaseModel(unittest.TestCase):
+    """test for BaseModel class"""
+
+    def test_datetime(self):
+        """Testing created_at and updated_at values and datetime objects"""
+        tic = datetime.now()
+        inst_1 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst_1.crated_at <= toc)
+        time.sleep(1e-4)
+        tic = datetime.now()
+        inst_2 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst_2.created_at <= toc)
+        self.assertEqual(inst_1.created_at, inst_1.updated_at)
+        self.assertEqual(inst_2.created_at, inst_2.updated_at)
+        self.assertNotEqual(inst_1.created_at, inst_2.created_at)
+        self.assertNotEqual(inst_1.updated_at, inst_2.updated_at)
 
 
 if __name__ == '__main__':
