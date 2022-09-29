@@ -10,11 +10,17 @@ from datetime import datetime
 class BaseModel:
     """Main Class Body"""
 
-    def __init__(self, name="Test"):
+    def __init__(self, *args, **kwargs):
         """ Initializer Function """
-        self.name = name
-        self.id = str(uuid4())
-        self.updated_at = self.created_at = datetime.now()
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    setattr(self, key, value)
+
+        else:
+            self.id = str(uuid4())
+            self.updated_at = self.created_at = datetime.now()
 
     def __str__(self):
         """
