@@ -31,10 +31,6 @@ class BaseModel:
     def to_dict(self):
         """
         Returns a dictionary with all object data.
-        Not complete. Needs to refine the updated/created_at values
-        and add the __class__ key.
-        The --outdict-- variable is where the relevant data is
-        stored, transformed, and returned.
         """
         return dict(self.__dict__,
                     __class__=self.__class__.__name__,
