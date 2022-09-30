@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module console
 Creating command interpreter console
+
 """
 
 
