@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Module console
 Creating command interpreter console
-
 """
 
 
@@ -12,15 +11,14 @@ import readline
 class HBNBCommand(cmd.Cmd):
     """class for console"""
 
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_quit(self, line):
-        """exits program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, line):
         """handles end of line char"""
-        print()
         return True
 
     def emptyline(self):
