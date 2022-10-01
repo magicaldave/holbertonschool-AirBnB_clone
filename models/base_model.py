@@ -11,7 +11,7 @@ from .__init__ import storage
 class BaseModel:
     """Main Class Body"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """ Initializer Function """
 
         if kwargs:
