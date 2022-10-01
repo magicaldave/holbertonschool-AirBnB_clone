@@ -5,12 +5,13 @@ Base model for AirBnB Project
 
 from uuid import uuid4
 from datetime import datetime
+from .__init__ import storage
 
 
 class BaseModel:
     """Main Class Body"""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """ Initializer Function """
 
         if kwargs:
@@ -21,6 +22,7 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.updated_at = self.created_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """
@@ -33,6 +35,7 @@ class BaseModel:
         For now, simply updates date of the object.
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
