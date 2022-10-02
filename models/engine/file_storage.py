@@ -27,9 +27,6 @@ class FileStorage:
         Stores an object inside the object tracker
         """
         self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
-        # print("-- Execute New --")
-        # print(self.__objects)
-        # print("-- End New --")
 
     def save(self):
         """
