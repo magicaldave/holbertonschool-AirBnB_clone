@@ -11,7 +11,9 @@ class FileStorage:
     """
     Rudimentary class for file-based data storage
     """
+    # Path to data
     __file_path = 'testdata.json'
+    # Stores all objects by <name>.<name.id>
     __objects = {}  # type: dict[int, str]
 
     def all(self):
@@ -24,15 +26,22 @@ class FileStorage:
         """
         Stores an object inside the object tracker
         """
-        self.__objects[f"{obj.__class__.__name__}.{obj['id']}"] = obj
+        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        # print("-- Execute New --")
+        # print(self.__objects)
+        # print("-- End New --")
 
     def save(self):
         """
         Saves all object instances to a file.
         """
-        with open(self.__file_path, mode="w",
-                  encoding="utf-8") as outinstances:
-            json.dump(self.__objects, outinstances)
+
+        with open(self.__file_path, 'w', encoding='utf-8') as outinstances:
+            json.dump(
+                {
+                    k: (v.to_dict() if not isinstance(v, dict) else v)
+                    for (k, v) in self.__objects.items()
+                }, outinstances)
 
     def reload(self):
         """
