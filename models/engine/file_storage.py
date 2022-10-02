@@ -32,7 +32,6 @@ class FileStorage:
         """
         Saves all object instances to a file.
         """
-
         with open(self.__file_path, 'w', encoding='utf-8') as outinstances:
             json.dump(
                 {
