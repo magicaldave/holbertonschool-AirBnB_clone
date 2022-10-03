@@ -3,11 +3,7 @@
 Creating command interpreter console
 """
 
-
-from ast import arg
 import cmd
-import readline
-from ssl import ALERT_DESCRIPTION_UNEXPECTED_MESSAGE
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -16,16 +12,17 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models import storage
-import json
-import re
-valid_class = {"BaseModel": BaseModel,
-               "User": User,
-               "State": State,
-               "City": City,
-               "Amenity": Amenity,
-               "Place": Place,
-               "Review": Review
-               }
+
+valid_class = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
+}
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -43,14 +40,13 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """does nothing on enter"""
-        pass
 
     def do_create(self, arg):
         """Creates new instance of BaseModel"""
 
         if len(arg) == 0:
             print("** class name missing **")
-        elif arg in valid_class.keys():
+        elif arg in valid_class:
             new = valid_class[arg]()
             new.save()
             print(new.id)
@@ -64,25 +60,25 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             word = arg.split(' ')
-            if word[0] not in storage.classes():
-                print("** class does not exist **")
+            if word[0] not in valid_class:
+                print("** class doesn't exist **")
             elif len(arg) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(arg[0], arg[1])
+                key = f'{arg[0]}.{arg[1]}'
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
                     print(storage.all()[key])
 
-    def do_destroy(self, arg):
+    def do_destroy(self, obj):
         """Deletes an instance based on class name and id"""
 
-        if arg == "" or arg is None:
+        if obj == "" or obj is None:
             print("** class name missing **")
         else:
-            word = arg.split(' ')
-            if word[0] not in storage.classes():
+            word = obj.split(' ')
+            if word[0] not in valid_class:
                 print("** class doesn't exist**")
             elif len(word) < 2:
                 print("** instance id missing **")
@@ -106,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         elif len(list_arg) < 4:
             print("** value missing **")
-        elif list_arg[0] not in valid_class.keys():
+        elif list_arg[0] not in valid_class:
             print("** class doesn't exist**")
         else:
             obj_search = list_arg[0] + "." + list_arg[1]
@@ -123,11 +119,13 @@ class HBNBCommand(cmd.Cmd):
 
         if arg != "":
             word = arg.split(' ')
-            if word[0] not in storage.classes():
+            if word[0] not in valid_class:
                 print("** class doesn't exist **")
             else:
-                n = [str(obj) for key, obj in storage.all().items()
-                     if type(obj).__name__ == word[0]]
+                n = [
+                    str(obj) for key, obj in storage.all().items()
+                    if type(obj).__name__ == word[0]
+                ]
                 print(n)
 
         else:
