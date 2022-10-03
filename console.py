@@ -47,14 +47,14 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Creates new instance of BaseModel"""
 
-        if arg == "" or arg is None:
+        if len(arg) == 0:
             print("** class name missing **")
-        elif arg not in storage.classes()
-            print("** class doesn't exist **")
+        elif arg in valid_class.keys():
+            new = valid_class[arg]()
+            new.save()
+            print(new.id)
         else:
-            s = storage.classes()[arg]()
-            s.save()
-            print(s.id)
+            print("** class doesn't exist **")
 
     def do_show(self, arg):
         """prints a string representation of instance"""
