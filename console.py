@@ -24,7 +24,6 @@ valid_class = {
 }
 
 
-
 class HBNBCommand(cmd.Cmd):
     """class for console"""
 
@@ -59,13 +58,13 @@ class HBNBCommand(cmd.Cmd):
         if arg == "" or arg is None:
             print("** class name missing **")
         else:
-            word = arg.split(' ')
+            word = arg.split()
             if word[0] not in valid_class:
                 print("** class doesn't exist **")
-            elif len(arg) < 2:
+            elif len(word) < 2:
                 print("** instance id missing **")
             else:
-                key = f'{arg[0]}.{arg[1]}'
+                key = f'{word[0]}.{word[1]}'
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
