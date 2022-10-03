@@ -4,9 +4,28 @@ Creating command interpreter console
 """
 
 
+from ast import arg
 import cmd
 import readline
-
+from ssl import ALERT_DESCRIPTION_UNEXPECTED_MESSAGE
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models import storage
+import json
+import re
+valid_class = {"BaseModel": BaseModel,
+               "User": User,
+               "State": State,
+               "City": City,
+               "Amenity": Amenity,
+               "Place": Place,
+               "Review": Review
+               }
 
 class HBNBCommand(cmd.Cmd):
     """class for console"""
@@ -24,6 +43,95 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """does nothing on enter"""
         pass
+
+    def do_create(self, arg):
+        """Creates new instance of BaseModel"""
+
+        if arg == "" or arg is None:
+            print("** class name missing **")
+        elif arg not in storage.classes()
+            print("** class doesn't exist **")
+        else:
+            s = storage.classes()[arg]()
+            s.save()
+            print(s.id)
+
+    def do_show(self, arg):
+        """prints a string representation of instance"""
+
+        if arg == "" or arg is None:
+            print("** class name missing **")
+        else:
+            word = arg.split(' ')
+            if word[0] not in storage.classes():
+                print("** class does not exist **")
+            elif len(arg) < 2:
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(arg[0], arg[1])
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
+
+    def do_destroy(self, arg):
+        """Deletes an instance based on class name and id"""
+
+        if arg == "" or arg is None:
+            print("** class name missing **")
+        else:
+            word = arg.split(' ')
+            if word[0] not in storage.classes():
+                print("** class doesn't exist**")
+            elif len(word) < 2:
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(word[0], word[1])
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    del storage.all()[key]
+                    storage.save()
+
+    def do_update(self, arg):
+        """updates an instance based on the class name and id"""
+
+        list_arg = arg.split(" ")
+        if arg == "" or arg is None:
+            print("** class name missing **")
+        elif len(list_arg) < 2:
+            print("** instance id missing **")
+        elif len(list_arg) < 3:
+            print("** attribute name missing **")
+        elif len(list_arg) < 4:
+            print("** value missing **")
+        elif list_arg[0] not in valid_class.keys():
+            print("** class doesn't exist**")
+        else:
+            obj_search = list_arg[0] + "." + list_arg[1]
+            obj_all = storage.all()
+            if obj_search in obj_all:
+                setattr(obj_all[obj_search], list_arg[2],
+                        list_arg[3].strip('\'"'))
+            else:
+                print("** no instance found **")
+
+    def do_all(self, arg):
+        """prints all of the string representations
+        of instances"""
+
+        if arg != "":
+            word = arg.split(' ')
+            if word[0] not in storage.classes():
+                print("** class doesn't exist **")
+            else:
+                n = [str(obj) for key, obj in storage.all().items()
+                     if type(obj).__name__ == word[0]]
+                print(n)
+
+        else:
+            n = [str(obj) for key, obj in storage.all().items()]
+            print(n)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
