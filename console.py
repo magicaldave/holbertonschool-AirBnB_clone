@@ -27,6 +27,7 @@ valid_class = {"BaseModel": BaseModel,
                "Review": Review
                }
 
+
 class HBNBCommand(cmd.Cmd):
     """class for console"""
 
@@ -132,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             n = [str(obj) for key, obj in storage.all().items()]
             print(n)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
