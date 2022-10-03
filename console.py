@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "" or arg is None:
             print("** class name missing **")
         else:
-            word = arg.split()
+            word = arg.split(' ')
             if word[0] not in valid_class:
                 print("** class doesn't exist **")
             elif len(word) < 2:
@@ -92,29 +92,30 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """updates an instance based on the class name and id"""
 
-        list_arg = arg.split(" ")
+        list_arg = arg.split(' ')
         if arg == "" or arg is None:
             print("** class name missing **")
+        elif list_arg[0] not in valid_class:
+            print("** class doesn't exist**")
         elif len(list_arg) < 2:
             print("** instance id missing **")
         elif len(list_arg) < 3:
             print("** attribute name missing **")
         elif len(list_arg) < 4:
             print("** value missing **")
-        elif list_arg[0] not in valid_class:
-            print("** class doesn't exist**")
         else:
             obj_search = list_arg[0] + "." + list_arg[1]
-            obj_all = storage.all()
-            if obj_search in obj_all:
-                setattr(obj_all[obj_search], list_arg[2],
+            if obj_search in storage.all():
+                setattr(storage.all()[obj_search], list_arg[2],
                         list_arg[3].strip('\'"'))
             else:
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """prints all of the string representations
-        of instances"""
+        """
+        prints all of the string representations
+        of instances
+        """
 
         if arg != "":
             word = arg.split(' ')
