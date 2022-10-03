@@ -4,8 +4,6 @@ containes data for user module
 """
 
 
-import email
-from ssl import _PasswordType
 from models.base_model import BaseModel
 
 
