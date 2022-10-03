@@ -5,7 +5,7 @@ Base model for AirBnB Project
 
 from uuid import uuid4
 from datetime import datetime
-from .__init__ import storage
+import models
 
 
 class BaseModel:
@@ -16,13 +16,19 @@ class BaseModel:
 
         if kwargs:
             for key, value in kwargs.items():
+                if "created_at" in kwargs:
+                    self.created_at = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                if "updated_at" in kwargs:
+                    self.updated_at = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
 
         else:
             self.id = str(uuid4())
             self.updated_at = self.created_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -35,7 +41,7 @@ class BaseModel:
         Updates the datetime and saves the object.
         """
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
