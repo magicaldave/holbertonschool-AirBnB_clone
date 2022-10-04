@@ -14,7 +14,6 @@ from models.review import Review
 from models import storage
 import re
 
-
 valid_class = {
     "BaseModel": BaseModel,
     "User": User,
@@ -82,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             word = obj.split(' ')
             if word[0] not in valid_class:
-                print("** class doesn't exist**")
+                print("** class doesn't exist **")
             elif len(word) < 2:
                 print("** instance id missing **")
             else:
