@@ -37,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """handles end of line char"""
+        print()
         return True
 
     def emptyline(self):
