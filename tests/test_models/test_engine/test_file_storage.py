@@ -2,20 +2,19 @@
 """
 This module is the unittest for the class: Filestorage.
 """
-from queue import Empty
-from models.engine.file_storage import FileStorage
+import os.path
 import unittest
 import pep8
-from genericpath import exists
-from models.base_model import BaseModel
-import os.path
 from models import storage
+from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 
 
 class TestFilestorageClass(unittest.TestCase):
     """
     This class is for testing Filestorage.
     """
+
     def setUp(self):
         """
         Setup method.
@@ -76,14 +75,12 @@ class TestFilestorageClass(unittest.TestCase):
         Testing save.
         """
         self.User1.save()
-        file_exists = os.path.exists('file.json')
-        self.assertEqual(file_exists, True)
+
+        self.assertEqual(os.path.exists('testdata.json'), True)
 
     def test_reload(self):
         """
         Testing reload.
         """
-        FileStorage.clear()
         storage.reload()
         self.assertTrue(len(storage.all()) > 0)
-        
