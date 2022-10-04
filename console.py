@@ -41,6 +41,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """does nothing on enter"""
+        pass
 
     def do_create(self, arg):
         """Creates new instance of BaseModel"""
