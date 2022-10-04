@@ -21,7 +21,7 @@ class TestBaseModelDocs(unittest.TestCase):
     def setUpClass(cls):
         """Set up for the doc tests"""
         cls.base_funcs = inspect.getmembers(User, inspect.isfunction)
-e
+
     def test_pep8_conformance(self):
         """test for pep8"""
         pep8style = pep8.StyleGuide(quiet=True)
