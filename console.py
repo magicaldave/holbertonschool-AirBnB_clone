@@ -99,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "" or arg is None:
             print("** class name missing **")
         elif list_arg[0] not in valid_class:
-            print("** class doesn't exist**")
+            print("** class doesn't exist **")
         elif len(list_arg) < 2:
             print("** instance id missing **")
         elif len(list_arg) < 3:
