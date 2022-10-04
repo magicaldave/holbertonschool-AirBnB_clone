@@ -12,6 +12,8 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models import storage
+import re
+
 
 valid_class = {
     "BaseModel": BaseModel,
@@ -22,7 +24,6 @@ valid_class = {
     "Place": Place,
     "Review": Review
 }
-
 
 
 class HBNBCommand(cmd.Cmd):
@@ -36,10 +37,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """handles end of line char"""
+        print()
         return True
 
     def emptyline(self):
         """does nothing on enter"""
+        pass
 
     def do_create(self, arg):
         """Creates new instance of BaseModel"""
@@ -62,10 +65,10 @@ class HBNBCommand(cmd.Cmd):
             word = arg.split(' ')
             if word[0] not in valid_class:
                 print("** class doesn't exist **")
-            elif len(arg) < 2:
+            elif len(word) < 2:
                 print("** instance id missing **")
             else:
-                key = f'{arg[0]}.{arg[1]}'
+                key = f'{word[0]}.{word[1]}'
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -93,29 +96,30 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """updates an instance based on the class name and id"""
 
-        list_arg = arg.split(" ")
+        list_arg = arg.split(' ')
         if arg == "" or arg is None:
             print("** class name missing **")
+        elif list_arg[0] not in valid_class:
+            print("** class doesn't exist**")
         elif len(list_arg) < 2:
             print("** instance id missing **")
         elif len(list_arg) < 3:
             print("** attribute name missing **")
         elif len(list_arg) < 4:
             print("** value missing **")
-        elif list_arg[0] not in valid_class:
-            print("** class doesn't exist**")
         else:
             obj_search = list_arg[0] + "." + list_arg[1]
-            obj_all = storage.all()
-            if obj_search in obj_all:
-                setattr(obj_all[obj_search], list_arg[2],
+            if obj_search in storage.all():
+                setattr(storage.all()[obj_search], list_arg[2],
                         list_arg[3].strip('\'"'))
             else:
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """prints all of the string representations
-        of instances"""
+        """
+        prints all of the string representations
+        of instances
+        """
 
         if arg != "":
             word = arg.split(' ')
