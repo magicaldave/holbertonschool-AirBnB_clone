@@ -1,2 +1,4 @@
 /models/__pycache__/
 __pycache__
+/test_save_reload_base_model.py
+/*.json
