@@ -1,5 +1,5 @@
 footer {
-    background-color: #00FF00;
+    background-color: #FFFFFF;
     display: flex;
     position: fixed;
     bottom: 0;
@@ -7,4 +7,5 @@ footer {
     width: 100%;
     align-items: center;
     justify-content: center;
+    border-bottom: 1px solid #CCCCCC;
 }
