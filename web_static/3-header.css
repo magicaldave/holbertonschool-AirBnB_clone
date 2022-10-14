@@ -1,14 +1,15 @@
 header {
-    background-color: #FFFFFF
+    background-color: #FFFFFF;
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
+
 }
 
 .logo {
-    background-image:url('../images/hbnb_logo.png');
-    vertical-align: middle;
-    height: 100%;
+    background-image:url('./images/hbnb_logo.png');
     background-repeat: no-repeat;
     background-position: 20px;
+    min-width: 100%;
+    min-height: 100%;
 }
