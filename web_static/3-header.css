@@ -7,7 +7,7 @@ header {
 }
 
 .logo {
-    background-image:url('./images/hbnb_logo.png');
+    background-image:url('../images/hbnb_logo.png');
     background-repeat: no-repeat;
     background-position: 20px;
     min-width: 100%;
