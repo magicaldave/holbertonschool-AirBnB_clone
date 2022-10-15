@@ -24,6 +24,10 @@
     width: 25%;
 }
 
+.amenities .popover {
+    margin-top: -16px;
+}
+
 .filters h3 {
     margin-left: 15px;
     font-weight: 600;
@@ -55,16 +59,10 @@
     opacity: 90%;
 }
 
-
-
 .filters .popover h2 {
     margin-bottom: 5px;
 }
 
 .locations:hover .popover, .amenities:hover .popover {
-    display: block;
-}
-
-.amenities:hover .popover {
     display: block;
 }
